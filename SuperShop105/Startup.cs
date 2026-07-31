@@ -32,6 +32,7 @@ namespace SuperShop105
                     Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddTransient<SeedDb>();
+            services.AddScoped<IRepository, Repository>();
 
             services.AddControllersWithViews();
         }
