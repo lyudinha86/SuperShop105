@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SuperShop105.Data;
 using SuperShop105.Data.Entities;
+using SuperShop105.Helpers;
 
 namespace SuperShop105.Controllers
 {
@@ -14,16 +15,19 @@ namespace SuperShop105.Controllers
     {
 
         private readonly IProductRepository _productRepository;
-        public ProductsController(IProductRepository productRepository)
+        private readonly IUserHelper _userHelper;
+        public ProductsController(IProductRepository productRepository, IUserHelper userHelper)
         {
             _productRepository = productRepository;
+            _userHelper = userHelper;
         }
 
         // GET: Products
         public IActionResult Index()
         {
-            return View(_productRepository.GetAll());
+            return View(_productRepository.GetAll().OrderBy(p => p.Name));
         }
+
 
         // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -57,7 +61,8 @@ namespace SuperShop105.Controllers
         {
             if (ModelState.IsValid)
             {
-              
+                //TODO: Modificar para o user que tiver logado
+                product.User = await _userHelper.GetUserByEmailAsync("oeirascity7@gmail.com");
                 await _productRepository.CreateAsync(product);
                 return RedirectToAction(nameof(Index));
             }
@@ -96,7 +101,7 @@ namespace SuperShop105.Controllers
             {
                 try
                 {
-              
+                    product.User = await _userHelper.GetUserByEmailAsync("oeirascity7@gmail.com");
                     await _productRepository.UpdateAsync(product);    
                   
                 }

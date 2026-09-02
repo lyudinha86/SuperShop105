@@ -18,7 +18,7 @@ namespace SuperShop105.Data.Entities
         [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
         public decimal Price { get; set; }
 
-        [Display(Name ="Image")]
+        [Display(Name = "Image")]
         public string ImageUrl { get; set; }
 
         [Display(Name = "Last Purchase")]
@@ -34,5 +34,6 @@ namespace SuperShop105.Data.Entities
 
         [DisplayFormat(DataFormatString = "{0:N2}", ApplyFormatInEditMode = false)]
         public double Stock { get; set; }
+        public User User { get; set; }
     }
 }

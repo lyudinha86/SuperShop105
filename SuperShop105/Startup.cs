@@ -10,6 +10,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using SuperShop105.Data;
+using Microsoft.AspNetCore.Identity;
+using SuperShop105.Data.Entities;
+using SuperShop105.Helpers;
 
 
 namespace SuperShop105
@@ -27,11 +30,25 @@ namespace SuperShop105
         public void ConfigureServices(IServiceCollection services)
 
         {
+
+            services.AddIdentity<User, IdentityRole>(cfg =>
+            {
+                cfg.User.RequireUniqueEmail = true;
+                cfg.Password.RequireDigit = false;
+                cfg.Password.RequiredUniqueChars = 0;
+                cfg.Password.RequireLowercase = false;
+                cfg.Password.RequireNonAlphanumeric = false;
+                cfg.Password.RequireUppercase = false;
+                cfg.Password.RequiredLength = 6;
+            })
+                .AddEntityFrameworkStores<DataContext>();
+
             services.AddDbContext<DataContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddTransient<SeedDb>();
+            services.AddScoped<IUserHelper, UserHelper>();
             services.AddScoped<IProductRepository, ProductRepository>();
 
             services.AddControllersWithViews();
@@ -54,7 +71,7 @@ namespace SuperShop105
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
