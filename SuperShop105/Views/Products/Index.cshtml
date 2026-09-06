@@ -19,9 +19,6 @@
                 @Html.DisplayNameFor(model => model.Price)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ImageUrl)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.LastPurchase)
             </th>
             <th>
@@ -46,7 +43,75 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ImageUrl)
+                @if (!string.IsNullOrEmpty(item.ImageUrl))
+                {
+                    <img src="@Url.Content(item.ImageUrl)" alt="Image" style="width: 300px; height: 450px; max-width:100%; height:auto3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"  />
+                }
+                else
+                {
+                    <span>No Image</span>
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.LastPurchase)
