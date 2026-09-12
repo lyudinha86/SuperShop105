@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using SuperShop105.Data.Entities;
+using SuperShop105.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +11,12 @@ namespace SuperShop105.Helpers
     public class UserHelper : IUserHelper
     {
         private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
 
-        public UserHelper(UserManager<User> userManager)
+        public UserHelper(UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _userManager = userManager;
+            _signInManager = signInManager;
         }
         public async Task<IdentityResult> AddUserAsync(User user, string password)
         {
@@ -37,9 +40,19 @@ namespace SuperShop105.Helpers
             throw new NotImplementedException();
         }
 
-        public Task<SignInResult> ValidatePasswordAsync(User user, string password)
+        public async Task<SignInResult> LoginAsync(LoginViewModel model)
         {
-            throw new NotImplementedException();
+            return await _signInManager.PasswordSignInAsync(
+                model.Username, 
+                model.Password,
+                model.RememberMe, 
+                false);
         }
+
+        public async Task LogoutAsync()
+        {
+            await _signInManager.SignOutAsync();
+        }
+        
     }
 }
