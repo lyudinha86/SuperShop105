@@ -81,7 +81,7 @@ namespace SuperShop105.Controllers
                 }
                
                 var product = _converterHelper.ToProduct(model, path, true);
-                product.User = await _userHelper.GetUserByEmailAsync("oeirascity7@gmail.com");
+                product.User = await _userHelper.GetUserByEmailAsync(this.User.Identity.Name);
                 await _productRepository.CreateAsync(product);
                 return RedirectToAction(nameof(Index));
             }
@@ -130,7 +130,7 @@ namespace SuperShop105.Controllers
                     }
                     
                     var product = _converterHelper.ToProduct(model, path, false);
-                    product.User = await _userHelper.GetUserByEmailAsync("oeirascity7@gmail.com");
+                    product.User = await _userHelper.GetUserByEmailAsync(this.User.Identity.Name);
                     await _productRepository.UpdateAsync(product);    
                   
                 }
