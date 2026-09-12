@@ -28,16 +28,16 @@ namespace SuperShop105.Helpers
             return await _userManager.FindByEmailAsync(email);
         }
 
-        public Task<IdentityResult> ChangePasswordAsync(User user, string oldPassword, string newPassword)
+        public async Task<IdentityResult> ChangePasswordAsync(User user, string oldPassword, string newPassword)
         {
-            throw new NotImplementedException();
+            return await _userManager.ChangePasswordAsync(user, oldPassword, newPassword);
         }
 
     
 
-        public Task<IdentityResult> UpdateUserAsync(User user)
+        public async Task<IdentityResult> UpdateUserAsync(User user)
         {
-            throw new NotImplementedException();
+            return await _userManager.UpdateAsync(user);
         }
 
         public async Task<SignInResult> LoginAsync(LoginViewModel model)
