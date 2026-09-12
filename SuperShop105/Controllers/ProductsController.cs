@@ -55,7 +55,7 @@ namespace SuperShop105.Controllers
         }
 
         // GET: Products/Create
-        [Authorize]
+        [Authorize(Roles ="Admin")]
         public IActionResult Create()
         {
             return View();
@@ -89,7 +89,7 @@ namespace SuperShop105.Controllers
         }
 
 
-        [Authorize]
+        [Authorize(Roles ="Admin")]
         // GET: Products/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -114,7 +114,7 @@ namespace SuperShop105.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> Edit(ProductViewModel model)
         {
 
@@ -151,7 +151,7 @@ namespace SuperShop105.Controllers
         }
 
         // GET: Products/Delete/5
-        [Authorize]
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
