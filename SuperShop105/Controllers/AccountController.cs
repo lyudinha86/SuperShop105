@@ -172,5 +172,9 @@ namespace SuperShop105.Controllers
             }
             return View(model);
         }
+        public IActionResult NotAuthorized()
+        {
+            return View();
+        }
     }
 }
