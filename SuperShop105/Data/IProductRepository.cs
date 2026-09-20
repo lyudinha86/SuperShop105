@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using SuperShop105.Data.Entities;
+using System.Collections.Generic;
 using System.Linq;
 
 
@@ -8,6 +10,7 @@ namespace SuperShop105.Data
     public interface IProductRepository : IGenericRepository<Product>
     {
         public IQueryable GetAllWithUsers();
-     
+        IEnumerable<SelectListItem> GetComboProducts();
+
     }
 }
